@@ -4,10 +4,10 @@ from pathlib import Path
 
 def plot_voltage_line(ts, volts, umbral_v: float, title: str, out_path: Path):
     plt.figure(figsize=(9,4))
-    plt.plot(ts, volts, label="temperatura", color="#1f77b4")
+    plt.plot(ts, volts, label="temperatura")
     alerts_t = [t for t, v in zip(ts, volts) if v > umbral_v]
     alerts_v = [v for v in volts if v > umbral_v]
-    plt.scatter(alerts_t, alerts_v,color="#f40404d2",label=f"Alertas (> {umbral_v} V)")
+    plt.scatter(alerts_t, alerts_v,color="#f40404d2",label=f"Alertas (> {umbral_v} C)")
     ax = plt.gca()
     for t, v in zip(alerts_t, alerts_v):
         ax.annotate(f"{v:.2f}V",               # Permite ver los puntos donde se pasa del umbral
@@ -18,7 +18,7 @@ def plot_voltage_line(ts, volts, umbral_v: float, title: str, out_path: Path):
                     fontsize=8)
     plt.axhline(umbral_v, linestyle="--", label=f"Umbral {umbral_v} C")
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
-    plt.title(title); plt.xlabel("Tiempo"); plt.ylabel("temp")
+    plt.title(title); plt.xlabel("Tiempo"); plt.ylabel("Temperatura")
     plt.grid(True); plt.legend(); plt.tight_layout()
     out_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(out_path, dpi=150); plt.show()
@@ -26,7 +26,7 @@ def plot_voltage_line(ts, volts, umbral_v: float, title: str, out_path: Path):
 def plot_voltage_hist(volts, title: str, out_path: Path, bins: int = 20):
     plt.figure(figsize=(6,4))
     plt.hist(volts, bins=bins)
-    plt.title(title); plt.xlabel("temp"); plt.ylabel("Frecuencia")
+    plt.title(title); plt.xlabel("Temperatura"); plt.ylabel("Frecuencia")
     plt.grid(True); plt.tight_layout()
     out_path.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(out_path, dpi=150); plt.show()

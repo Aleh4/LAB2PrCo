@@ -65,7 +65,7 @@ def main():
     rep_csv = REPORTS_DIR / "kpis_por_archivo.csv"
     with rep_csv.open("w", encoding="utf-8", newline="") as f:
         cols = ["archivo","salida","filas_totales","filas_validas","descartes_timestamp",
-                "descartes_valor","%descartadas","n","min","max","prom","alerts","alerts_pct"]
+                "descartes_valor","%Descartadas","n","min","max","prom","alerts","alerts_pct"]
         w = csv.DictWriter(f, fieldnames=cols)
         w.writeheader()
         for row in resumen_kpis:

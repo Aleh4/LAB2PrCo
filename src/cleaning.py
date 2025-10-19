@@ -80,7 +80,7 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
         "filas_validas": kept,
         "descartes_timestamp": bad_ts,
         "descartes_valor": bad_val,
-        "%descartadas": round(((bad_ts + bad_val) / total * 100.0) if total else 0.0, 2),
+        "%Descartadas": round(((bad_ts + bad_val) / total * 100.0) if total else 0.0, 2),
     }
 
     return ts_list, volts_list,Temperatura,stats
