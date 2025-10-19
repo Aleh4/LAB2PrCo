@@ -38,13 +38,13 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
     Devuelve: (ts_list, volts_list, stats_dict)
     """
     delim = detectar_delimitador(in_path)
-    ts_list, volts_list, Humedad = [], [], []
+    ts_list, volts_list, Temperatura = [], [], []
     total = kept = bad_ts = bad_val = 0
 
     with in_path.open("r", encoding="utf-8", newline="") as fin, \
          out_path.open("w", encoding="utf-8", newline="") as fout:
         reader = csv.DictReader(fin, delimiter=delim)
-        writer = csv.DictWriter(fout, fieldnames=["timestamp", "voltage_V","humedad"])
+        writer = csv.DictWriter(fout, fieldnames=["timestamp", "voltage_V","temperatura_C"])
         writer.writeheader()
 
         for row in reader:
@@ -63,16 +63,17 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
             if v is None:
                 bad_val += 1; continue
             #ecuacion lineal de calibracion -
-            hum=2+(100-2)*(v-0.4)/(7.0-0.4)
+            #temp=2+(100-2)*(v-0.4)/(7.0-0.4)
+            temp = (243.15+((150*v-60)/5.2)) - 273.15
             
             writer.writerow({
                 "timestamp": t.strftime("%Y-%m-%dT%H:%M:%S"),
                 "voltage_V": f"{v:.3f}",
-                "humedad": f"{hum:.3f}"
+                "temperatura_C": f"{temp:.3f}"
             })
             
           
-            ts_list.append(t); volts_list.append(v); Humedad.append(hum); kept += 1
+            ts_list.append(t); volts_list.append(v); Temperatura.append(temp); kept += 1
 
     stats = {
         "filas_totales": total,
@@ -82,4 +83,4 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
         "%descartadas": round(((bad_ts + bad_val) / total * 100.0) if total else 0.0, 2),
     }
 
-    return ts_list, volts_list,Humedad,stats
+    return ts_list, volts_list,Temperatura,stats
