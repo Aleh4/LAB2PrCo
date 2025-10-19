@@ -3,10 +3,10 @@ import csv
 from src import (Root, ensure_dirs,list_raw_csvs,make_clean_name,safe_stem, clean_file, kpis_volt, plot_voltage_line,plot_voltage_hist, plot_boxplot_by_sensor)
 # === Parámetros ===
 ROOT = Root(__file__)
-RAW_DIR = ROOT / "DATA" / "RAW"
-PROC_DIR = ROOT / "DATA" / "PROCCESING"
+RAW_DIR = ROOT / "data" / "raw"
+PROC_DIR = ROOT / "data" / "processed"
 PLOTS_DIR = ROOT / "plots"
-REPORTS_DIR = ROOT / "Reportes"
+REPORTS_DIR = ROOT / "reports"
 UMBRAL_V = 90
 
 ensure_dirs(RAW_DIR, PROC_DIR, PLOTS_DIR, REPORTS_DIR)
