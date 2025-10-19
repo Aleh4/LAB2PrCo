@@ -1,9 +1,6 @@
 from pathlib import Path
 import csv
-from src.pipeline import (Root, ensure_dirs, 
-                          list_raw_csvs,make_clean_name,safe_stem, 
-                          clean_file, kpis_volt, plot_voltage_line, 
-                          plot_voltage_hist, plot_boxplot_by_sensor)
+from src import (Root, ensure_dirs,list_raw_csvs,make_clean_name,safe_stem, clean_file, kpis_volt, plot_voltage_line,plot_voltage_hist, plot_boxplot_by_sensor)
 # === Parámetros ===
 ROOT = Root(__file__)
 RAW_DIR = ROOT / "DATA" / "RAW"
