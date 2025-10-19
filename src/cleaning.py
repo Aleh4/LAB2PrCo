@@ -64,7 +64,7 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
                 bad_val += 1; continue
             #ecuacion lineal de calibracion -
             #temp=2+(100-2)*(v-0.4)/(7.0-0.4)
-            temp = (243.15+((150*v-60)/5.2)) - 273.15
+            temp = ((150*v-60)/5.2) - 30
             
             writer.writerow({
                 "timestamp": t.strftime("%Y-%m-%dT%H:%M:%S"),
