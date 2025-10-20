@@ -3,7 +3,7 @@ import matplotlib.dates as mdates
 from pathlib import Path
 
 def plot_voltage_line(ts, volts, umbral_v: float, title: str, out_path: Path):
-    plt.figure(figsize=(9,4))
+    plt.figure(figsize=(16,8))
     plt.plot(ts, volts, label="temperatura", color="#1f77b4")
     alerts_t = [t for t, v in zip(ts, volts) if v > umbral_v]
     alerts_v = [v for v in volts if v > umbral_v]
@@ -24,7 +24,7 @@ def plot_voltage_line(ts, volts, umbral_v: float, title: str, out_path: Path):
     plt.savefig(out_path, dpi=150); plt.show()
 
 def plot_voltage_hist(volts, title: str, out_path: Path, bins: int = 20):
-    plt.figure(figsize=(6,4))
+    plt.figure(figsize=(16,8))
     plt.hist(volts, bins=bins)
     plt.title(title); plt.xlabel("Temperatura"); plt.ylabel("Frecuencia")
     plt.grid(True); plt.tight_layout()
