@@ -25,13 +25,13 @@ def main():
         out_path = PROC_DIR / clean_name
 
         # 1) Limpiar y escribir CSV limpio
-        ts, volts, temperatuta, stats = clean_file(in_path, out_path)
+        ts, volts, temperatura, stats = clean_file(in_path, out_path)
         if not ts:
             print("Sin datos válidos:", in_path.name)
             continue
 
         # 2) KPIs por archivo (voltaje)
-        kv = kpis_volt(temperatuta, umbral=UMBRAL_V)
+        kv = kpis_volt(temperatura, umbral=UMBRAL_V)
         resumen_kpis.append({
             "archivo": in_path.name,
             "salida": out_path.name,
@@ -43,12 +43,12 @@ def main():
         # 3) Gráficos por archivo
         stem_safe = safe_stem(out_path)
         plot_voltage_line(
-            ts, temperatuta, UMBRAL_V,
+            ts, temperatura, UMBRAL_V,
             title=f"Temperatura vs Tiempo — {out_path.name}",
             out_path=PLOTS_DIR / f"{stem_safe}__volt_line__{UMBRAL_V:.1f}%.png"
         )
         plot_voltage_hist(
-            temperatuta,
+            temperatura,
             title=f"Histograma Voltaje — {out_path.name}",
             out_path=PLOTS_DIR / f"{stem_safe}__volt_hist.png",
             bins=20
@@ -59,7 +59,7 @@ def main():
         name = out_path.stem
         sensor_id = name.replace("voltaje_sensor_", "")
         sensor_key = f"S-{sensor_id}" if sensor_id != name else name
-        sensor_to_volts.setdefault(sensor_key, []).extend(temperatuta)
+        sensor_to_volts.setdefault(sensor_key, []).extend(temperatura)
 
     # 5) Guardar reporte KPIs
     rep_csv = REPORTS_DIR / "kpis_por_archivo.csv"

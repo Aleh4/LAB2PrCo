@@ -4,13 +4,13 @@ from pathlib import Path
 
 def plot_voltage_line(ts, volts, umbral_v: float, title: str, out_path: Path):
     plt.figure(figsize=(9,4))
-    plt.plot(ts, volts, label="temperatura")
+    plt.plot(ts, volts, label="temperatura", color="#1f77b4")
     alerts_t = [t for t, v in zip(ts, volts) if v > umbral_v]
     alerts_v = [v for v in volts if v > umbral_v]
     plt.scatter(alerts_t, alerts_v,color="#f40404d2",label=f"Alertas (> {umbral_v} C)")
     ax = plt.gca()
     for t, v in zip(alerts_t, alerts_v):
-        ax.annotate(f"{v:.2f}V",               # Permite ver los puntos donde se pasa del umbral
+        ax.annotate(f"{v:.2f}C",               # Permite ver los puntos donde se pasa del umbral
                     xy=(t, v),                 # punto a anotar
                     xytext=(0, 8),             # desplazamiento del texto (px)
                     textcoords="offset points",

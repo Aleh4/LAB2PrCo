@@ -38,7 +38,7 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
     Devuelve: (ts_list, volts_list, stats_dict)
     """
     delim = detectar_delimitador(in_path)
-    ts_list, volts_list, Temperatura = [], [], []
+    ts_list, volts_list, temperatura_list = [], [], []
     total = kept = bad_ts = bad_val = 0
 
     with in_path.open("r", encoding="utf-8", newline="") as fin, \
@@ -73,7 +73,7 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
             })
             
           
-            ts_list.append(t); volts_list.append(v); Temperatura.append(temp); kept += 1
+            ts_list.append(t); volts_list.append(v); temperatura_list.append(temp); kept += 1
 
     stats = {
         "filas_totales": total,
@@ -83,4 +83,4 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
         "%Descartadas": round(((bad_ts + bad_val) / total * 100.0) if total else 0.0, 2),
     }
 
-    return ts_list, volts_list,Temperatura,stats
+    return ts_list, volts_list,temperatura_list,stats
